@@ -16,7 +16,7 @@ class Graph:
 class Vertex:
     def __init__(self, _id):
         self.id = _id
-        self.adjacent = [] # {u: 5, t: 8}
+        self.adjacent = []
 
     def add_adj(self, vertex_adj, w=0):
         vertex_adj.w=w

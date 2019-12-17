@@ -3,7 +3,7 @@ import copy
 
 from Graph import Graph, Vertex 
 
-def dijkstra(s, graph):
+def dijkstra(graph, s):
     distance_for_v, pi = initialize_single_source(graph, s)
     S = []
     q = copy.deepcopy(graph.vertices)
@@ -93,6 +93,6 @@ if __name__ == "__main__":
     input_graph.add_edge(h, f, 6)
     input_graph.add_edge(d, h, 5)
 
-    dijkstra(s, input_graph)
+    dijkstra(input_graph, s)
 
 
