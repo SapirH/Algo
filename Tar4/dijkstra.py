@@ -4,59 +4,57 @@ import copy
 from Graph import Graph, Vertex 
 
 def dijkstra(graph, s):
-    distance_for_v, pi = initialize_single_source(graph, s)
-    S = []
+    distance_for_adj, pi = initialize_single_source(graph, s)
+    S = Graph()
     q = copy.deepcopy(graph.vertices)
 
     while len(q) > 0:
-        u = extract_min(q, distance_for_v)
-        S.append(u)
-
+        u = extract_min(q, distance_for_adj)
+        S.add_vertex(u)
         for v in u.adjacent:
-            relax(u, v, distance_for_v, pi)
+            relax(u, graph[v["id"]], distance_for_adj, pi)
 
-    print_dijkstra_output(graph, s, pi, distance_for_v)
+    print_dijkstra_output(graph, s, pi, distance_for_adj)
 
 
 def initialize_single_source(graph, s):
-    distance_for_v = {v.id: sys.maxsize for v in graph.vertices}
-    distance_for_v[s.id] = 0
+    distance_for_adj = { v: sys.maxsize for v in graph.keys()}
+    distance_for_adj[s.id] = 0
 
-    pi = {v.id: None for v in graph.vertices}
+    pi = {v: None for v in graph.keys()}
 
-    return distance_for_v, pi
+    return distance_for_adj, pi
 
 
-def extract_min(q, distance_for_v):
+def extract_min(q, distance_for_adj):
     min_vertex = None
     min_distance = sys.maxsize
     
     for v in q:
-        if distance_for_v[v.id] < min_distance:
-            min_distance = distance_for_v[v.id]
-            min_vertex = v
-            
-    q.remove(min_vertex)
+        if distance_for_adj[v] < min_distance:
+            min_distance = distance_for_adj[v]
+            min_vertex = q[v]
+    if min_vertex.id in(q):    
+        del q[min_vertex.id]
 
     return min_vertex
 
 
-def relax(u, v, distance_for_v, pi):
-    if distance_for_v[v.id] > distance_for_v[u.id] + u.get_adj_weight(v):
-        distance_for_v[v.id] = distance_for_v[u.id] + u.get_adj_weight(v)
+def relax(u, v, distance_for_adj, pi):
+    if distance_for_adj[v.id] > distance_for_adj[u.id] + u.get_adj_weight(v):
+        distance_for_adj[v.id] = distance_for_adj[u.id] + u.get_adj_weight(v)
         pi[v.id] = u
 
-
-def print_dijkstra_output(graph, s, pi, distance_for_v):
+def print_dijkstra_output(graph, s, pi, distance_for_adj):
     print('dijkstra results - find shortest paths from root {}'.format(s.id))
 
-    for v in graph.vertices:
-        if v.id != s.id:
+    for v in graph.keys():
+        if v != s.id:
             print('vertex {} has distance of {} from the root {} and pi: {}.'
-                .format(v.id, distance_for_v[v.id], s.id, pi[v.id].id))
+                .format(v, distance_for_adj[v], s.id, pi[v].id))
         else:
             print('vertex {} is root vertex and has distance of {} from himself and {} pi.'
-                .format(v.id, distance_for_v[v.id], pi[v.id]))
+                .format(v, distance_for_adj[v], pi[v]))
     print('The End :)')
 
 if __name__ == "__main__":
@@ -94,5 +92,3 @@ if __name__ == "__main__":
     input_graph.add_edge(d, h, 5)
 
     dijkstra(input_graph, s)
-
-

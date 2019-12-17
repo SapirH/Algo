@@ -4,28 +4,37 @@
 
 class Graph:
     def __init__(self):
-        self.vertices = []
+        self.vertices = {}
+
+    def __getitem__(self, key):
+        return self.vertices[key]
+
+    def keys(self):
+        return self.vertices.keys()
 
     def add_vertex(self, vertex):
-        self.vertices.append(vertex)
+        self.vertices[vertex.id] = vertex
 
     def add_edge(self, u, v, w):
         u.add_adj(v, w)
 
 
 class Vertex:
-    def __init__(self, _id):
+    def __init__(self, _id, weight=None):
         self.id = _id
         self.adjacent = []
+        if weight != None:
+            self.weight = weight
+
 
     def add_adj(self, vertex_adj, w=0):
-        vertex_adj.w=w
-        self.adjacent.append(vertex_adj)
+        new_adj={ "id": vertex_adj.id, "weight": w }
+        self.adjacent.append(new_adj)
 
-    def get_adj_weight(self, v):
+    def get_adj_weight(self, curr_adj):
         for adj in self.adjacent:
-            if adj.id == v.id:
-                return adj.w
+            if adj["id"] == curr_adj.id:
+                return adj["weight"]
 
     def __str__(self):
         return '{} and adj {}'.format(self.id, self.adjacent)
