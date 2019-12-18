@@ -22,9 +22,10 @@ class Graph:
 
 
 class Vertex:
-    def __init__(self, _id):
+    def __init__(self, _id, heuristic_weight=None):
         self.id = _id
         self.adjacent = []
+        self.heuristic_weight = heuristic_weight
 
     def add_adj(self, vertex_adj, w=0):
         new_adj = {'id': vertex_adj.id, 'weight': w}
@@ -38,10 +39,3 @@ class Vertex:
 
     def __str__(self):
         return '{} and adj {}'.format(self.id, self.adjacent)
-
-
-class AStarGraphVertex(Vertex):
-    def __init__(self, _id, heuristic_weight):
-        super().__init__(_id)
-        self.heuristic_weight = heuristic_weight
-        self.g = 0

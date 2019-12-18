@@ -6,7 +6,7 @@
 import sys
 import copy
 
-from Tar4.Graph import Graph, Vertex
+from Graph import Graph, Vertex
 
 
 def dijkstra(graph, s):

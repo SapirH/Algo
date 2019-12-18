@@ -6,7 +6,7 @@
 import sys
 import copy
 
-from Tar4.Graph import Graph, AStarGraphVertex
+from Graph import Graph, Vertex
 
 
 def a_star(graph, s):
@@ -68,14 +68,14 @@ if __name__ == '__main__':
     input_graph = Graph()
     heuristic_weight_dict = {'A': 7, 'B': 7, 'C': 5, 'D': 3.5, 'E': 6, 'F': 3, 'H': 0, 'S': 9}
 
-    a = AStarGraphVertex('A', heuristic_weight_dict['A'])
-    b = AStarGraphVertex('B', heuristic_weight_dict['B'])
-    c = AStarGraphVertex('C', heuristic_weight_dict['C'])
-    d = AStarGraphVertex('D', heuristic_weight_dict['D'])
-    e = AStarGraphVertex('E', heuristic_weight_dict['E'])
-    f = AStarGraphVertex('F', heuristic_weight_dict['F'])
-    h = AStarGraphVertex('H', heuristic_weight_dict['H'])
-    s = AStarGraphVertex('S', heuristic_weight_dict['S'])
+    a = Vertex('A', heuristic_weight_dict['A'])
+    b = Vertex('B', heuristic_weight_dict['B'])
+    c = Vertex('C', heuristic_weight_dict['C'])
+    d = Vertex('D', heuristic_weight_dict['D'])
+    e = Vertex('E', heuristic_weight_dict['E'])
+    f = Vertex('F', heuristic_weight_dict['F'])
+    h = Vertex('H', heuristic_weight_dict['H'])
+    s = Vertex('S', heuristic_weight_dict['S'])
 
     input_graph.add_vertex(a)
     input_graph.add_vertex(b)
